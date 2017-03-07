@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  customize:
+    memory: 4096
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: win_2016
+
+suites:
+  - name: default
+    run_list:
+      - recipe[directory_sync::test_recipe]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:

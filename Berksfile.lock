@@ -1,0 +1,7 @@
+DEPENDENCIES
+  directory_sync
+    path: .
+    metadata: true
+
+GRAPH
+  directory_sync (0.1.0)
