@@ -15,7 +15,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: win_2016
+  - name: win_2012
 
 suites:
   - name: default
