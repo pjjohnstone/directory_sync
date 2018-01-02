@@ -4,7 +4,7 @@ maintainer_email 'johnstonep@gmail.com'
 license 'all_rights'
 description 'Idempotent directory sync'
 long_description 'Idempotent directory sync'
-version '1.0.0'
+version '1.0.1'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when

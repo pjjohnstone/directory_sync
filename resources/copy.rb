@@ -23,6 +23,7 @@ action :copy do
       source_item = ::File.directory?(source) ? (Pathname.new(::File.path(file)).relative_path_from Pathname.new(source)) : (Pathname.new(::File.path(file)).relative_path_from Pathname.new(::File.dirname(source)))
       target_path = win_friendly_path(::File.join(target, source_item))
       if files_match?(file, target_path, checksum)
+        puts "#{file} and #{target_path} match, skipping..."
         Chef::Log.debug("#{file} and #{target_path} match, skipping...")
       else
         converge_by "Copying #{file} to #{target_path}..." do
@@ -39,7 +40,7 @@ end
 
 def file_copy(source, target)
   ::FileUtils.mkdir_p ::File.dirname(target) unless ::File.exist?(::File.dirname(target))
-  ::FileUtils.cp source, target
+  ::FileUtils.cp source, target, preserve: true
 end
 
 def files_match?(source, target, checksum)
@@ -49,6 +50,9 @@ end
 
 def file_modified_date_match?(source, target)
   ::File.mtime(source) == ::File.mtime(target)
+rescue Errno::EACCES => e
+  Chef::Log.Error("Error: #{e}\nFalling back to checksum method.")
+  return file_checksum_match?(source, target)
 end
 
 def file_checksum_match?(source, target)
