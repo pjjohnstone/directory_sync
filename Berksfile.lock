@@ -4,4 +4,4 @@ DEPENDENCIES
     metadata: true
 
 GRAPH
-  directory_sync (1.0.0)
+  directory_sync (1.0.1)

@@ -23,7 +23,6 @@ action :copy do
       source_item = ::File.directory?(source) ? (Pathname.new(::File.path(file)).relative_path_from Pathname.new(source)) : (Pathname.new(::File.path(file)).relative_path_from Pathname.new(::File.dirname(source)))
       target_path = win_friendly_path(::File.join(target, source_item))
       if files_match?(file, target_path, checksum)
-        puts "#{file} and #{target_path} match, skipping..."
         Chef::Log.debug("#{file} and #{target_path} match, skipping...")
       else
         converge_by "Copying #{file} to #{target_path}..." do
